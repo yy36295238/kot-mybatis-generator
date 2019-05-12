@@ -25,14 +25,24 @@ public class User {
   private Long id;
 
   /**
-   * 用户姓名
+   * 用户id
    */
-  private String name;
+  private String openId;
 
   /**
-   * 手机号
+   *
    */
-  private String cellPhone;
+  private String unionId;
+
+  /**
+   * 用户昵称
+   */
+  private String nickName;
+
+  /**
+   *
+   */
+  private String password;
 
   /**
    * 邮箱
@@ -40,32 +50,62 @@ public class User {
   private String email;
 
   /**
-   * 用户名，登录时使用
+   * 用户头像地址
    */
-  private String userName;
+  private String avatarUrl;
 
   /**
-   * 密码
+   * 用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
    */
-  private String password;
+  private Integer gender;
 
   /**
-   * 用户状态，1=正常,2=禁用,-9=删除
+   * 用户所在城市
    */
-  private Integer userStatus;
+  private String city;
 
   /**
-   * 创建日期
+   * 用户所在省份
+   */
+  private String province;
+
+  /**
+   * ip地址
+   */
+  private String ip;
+
+  /**
+   * 用户所在国家
+   */
+  private String country;
+
+  /**
+   * 用户的语言，简体中文为zh_CN
+   */
+  private String language;
+
+  /**
+   * 用户类型,1=微信用户，2=后台用户
+   */
+  private Integer type;
+
+  /**
+   * 激活状态
+   */
+  private Integer activation;
+
+  /**
+   * 状态：1=正常
+   */
+  private Integer status;
+
+  /**
+   *
    */
   private Date createTime;
 
   /**
-   * 创建人
-   */
-  private Long createUser;
-
-  /**
-   * 最后修改日期
+   *
    */
   private Date updateTime;
 }

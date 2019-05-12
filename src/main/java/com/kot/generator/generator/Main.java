@@ -11,15 +11,15 @@ import org.springframework.util.StopWatch;
 public class Main {
 
     public static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-    public static final String URL = "jdbc:mysql://localhost:3306/kakrot?serverTimezone=UTC&useSSL=false";
-    public static final String USERNAME = "root";
-    public static final String PASSWORD = "123456";
+    public static final String URL = "jdbc:mysql://www.test.com:3306/test?serverTimezone=UTC&useSSL=false";
+    public static final String USERNAME = "test";
+    public static final String PASSWORD = "Test!123S";
 
     static final String AUTHOR = "yangyu";
 
     private static final String FILE_PATH = System.getProperty("user.dir") + "\\src\\main\\java\\";
-    private static final String PACKAGE_NAME = "com.website";
-    private static final String[] TABLES = {"user", "role"};
+    private static final String PACKAGE_NAME = "com.kot.kotmybatis";
+    private static final String[] TABLES = {"user"};
 
 
     public static void main(String[] args) throws Exception {
