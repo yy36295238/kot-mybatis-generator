@@ -37,9 +37,9 @@ class MakeService {
     private void makeService() throws IOException {
         //泛型 BaseMapper<user>
         ClassName managerService = ClassName.get("kot.bootstarter.kotmybatis.service", "MapperManagerService");
-        ClassName entity = ClassName.get(packageName + ".entity", CommonUtils.captureName(tableName));
+        ClassName entity = ClassName.get(packageName + ".entity", CommonUtils.capitalName(tableName));
 
-        TypeSpec.Builder serviceClassBuilder = TypeSpec.interfaceBuilder(CommonUtils.captureName(tableName) + "Service")
+        TypeSpec.Builder serviceClassBuilder = TypeSpec.interfaceBuilder(CommonUtils.capitalName(tableName) + "Service")
                 .addModifiers(Modifier.PUBLIC)
                 .addJavadoc("@author " + AUTHOR + "\n")
                 .addSuperinterface(ParameterizedTypeName.get(managerService, entity));
@@ -51,12 +51,14 @@ class MakeService {
     private void makeServiceImpl() throws IOException {
         //泛型 BaseMapper<user>
         ClassName managerService = ClassName.get("kot.bootstarter.kotmybatis.service.impl", "MapperManagerServiceImpl");
-        ClassName entity = ClassName.get(packageName + ".entity", CommonUtils.captureName(tableName));
+        ClassName service = ClassName.bestGuess(packageName + ".service." + CommonUtils.capitalName(tableName) + "Service");
+        ClassName entity = ClassName.get(packageName + ".entity", CommonUtils.capitalName(tableName));
 
-        TypeSpec.Builder serviceClassBuilder = TypeSpec.classBuilder(CommonUtils.captureName(tableName) + "ServiceImpl")
+        TypeSpec.Builder serviceClassBuilder = TypeSpec.classBuilder(CommonUtils.capitalName(tableName) + "ServiceImpl")
                 .addModifiers(Modifier.PUBLIC)
                 .addJavadoc("@author " + AUTHOR + "\n")
                 .addAnnotation(Service.class)
+                .addSuperinterface(service)
                 .superclass(ParameterizedTypeName.get(managerService, entity));
 
         JavaFile javaFile = JavaFile.builder(packageName + ".service.impl", serviceClassBuilder.build()).build();

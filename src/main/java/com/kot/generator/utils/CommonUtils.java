@@ -35,10 +35,17 @@ public class CommonUtils {
     /**
      * 首字母大写
      */
-    public static String captureName(String name) {
+    private static String captureName(String name) {
         char[] cs = name.toCharArray();
         cs[0] -= 32;
         return String.valueOf(cs);
+    }
+
+    /**
+     * 单词首字母大写 UserName
+     */
+    public static String capitalName(String word) {
+        return captureName(camelCaseName(word));
     }
 
     /**

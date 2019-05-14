@@ -32,9 +32,9 @@ class MakeMapper {
 
         //泛型 BaseMapper<user>
         ClassName baseMapper = ClassName.get("kot.bootstarter.kotmybatis.mapper", "BaseMapper");
-        ClassName entity = ClassName.get(packageName + ".entity", CommonUtils.captureName(tableName));
+        ClassName entity = ClassName.get(packageName + ".entity", CommonUtils.capitalName(tableName));
 
-        TypeSpec.Builder classBuilder = TypeSpec.interfaceBuilder(CommonUtils.captureName(tableName) + "Mapper")
+        TypeSpec.Builder classBuilder = TypeSpec.interfaceBuilder(CommonUtils.capitalName(tableName) + "Mapper")
                 .addModifiers(Modifier.PUBLIC)
                 .addJavadoc("@author " + AUTHOR + "\n")
                 .addSuperinterface(ParameterizedTypeName.get(baseMapper, entity));

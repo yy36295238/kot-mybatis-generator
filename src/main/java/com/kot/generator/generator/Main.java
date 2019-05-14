@@ -17,10 +17,10 @@ public class Main {
 
     static final String AUTHOR = "yangyu";
     // 开启swagger实体注解
-    static final boolean ENABLE_SWAGGER = true;
+    static final boolean ENABLE_SWAGGER = false;
 
     private static final String FILE_PATH = System.getProperty("user.dir") + "\\src\\main\\java\\";
-    private static final String PACKAGE_NAME = "com.kot.kotmybatis";
+    private static final String PACKAGE_NAME = "com.kot.kotmybatis.biz";
     private static final String[] TABLES = {"user"};
 
 
