@@ -30,18 +30,36 @@ class MakeService {
     }
 
     void makeClass() throws IOException {
+        makeService();
+        makeServiceImpl();
+    }
 
+    private void makeService() throws IOException {
+        //泛型 BaseMapper<user>
+        ClassName managerService = ClassName.get("kot.bootstarter.kotmybatis.service", "MapperManagerService");
+        ClassName entity = ClassName.get(packageName + ".entity", CommonUtils.captureName(tableName));
+
+        TypeSpec.Builder serviceClassBuilder = TypeSpec.interfaceBuilder(CommonUtils.captureName(tableName) + "Service")
+                .addModifiers(Modifier.PUBLIC)
+                .addJavadoc("@author " + AUTHOR + "\n")
+                .addSuperinterface(ParameterizedTypeName.get(managerService, entity));
+
+        JavaFile javaFile = JavaFile.builder(packageName + ".service", serviceClassBuilder.build()).build();
+        javaFile.writeTo(new File(filePath));
+    }
+
+    private void makeServiceImpl() throws IOException {
         //泛型 BaseMapper<user>
         ClassName managerService = ClassName.get("kot.bootstarter.kotmybatis.service.impl", "MapperManagerServiceImpl");
         ClassName entity = ClassName.get(packageName + ".entity", CommonUtils.captureName(tableName));
 
-        TypeSpec.Builder classBuilder = TypeSpec.classBuilder(CommonUtils.captureName(tableName) + "Service")
+        TypeSpec.Builder serviceClassBuilder = TypeSpec.classBuilder(CommonUtils.captureName(tableName) + "ServiceImpl")
                 .addModifiers(Modifier.PUBLIC)
                 .addJavadoc("@author " + AUTHOR + "\n")
                 .addAnnotation(Service.class)
                 .superclass(ParameterizedTypeName.get(managerService, entity));
 
-        JavaFile javaFile = JavaFile.builder(packageName + ".service", classBuilder.build()).build();
+        JavaFile javaFile = JavaFile.builder(packageName + ".service.impl", serviceClassBuilder.build()).build();
         javaFile.writeTo(new File(filePath));
     }
 

@@ -3,6 +3,7 @@ package com.kot.generator.generator;
 import com.kot.generator.utils.CommonUtils;
 import com.kot.generator.utils.DatabaseUtils;
 import com.squareup.javapoet.*;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -37,13 +38,25 @@ class MakeEntity {
 
         TypeSpec.Builder classBuilder = TypeSpec.classBuilder(CommonUtils.captureName(tableName));
 
-        columnInfos.forEach(c -> classBuilder.addField(FieldSpec.builder(CommonUtils.changeType(c.getType()), CommonUtils.camelCaseName(c.getName()), Modifier.PRIVATE)
-                .addJavadoc(c.getComment() + "\n").build()));
+        columnInfos.forEach(c -> {
+            final FieldSpec.Builder fieldBuilder = FieldSpec.builder(CommonUtils.changeType(c.getType()), CommonUtils.camelCaseName(c.getName()), Modifier.PRIVATE)
+                    .addJavadoc(c.getComment() + "\n");
+            if (Main.ENABLE_SWAGGER) {
+                fieldBuilder.addAnnotation(AnnotationSpec.builder(ApiModelProperty.class)
+                        .addMember("value", "$S", c.getComment())
+                        .addMember("dataType", "$S", CommonUtils.changeType(c.getType()).getSimpleName())
+                        .addMember("name", "$S", CommonUtils.camelCaseName(c.getName()))
+                        .build());
+            }
+            classBuilder.addField(fieldBuilder.build());
+
+        });
+
 
         // 公共方法
-        classBuilder.addModifiers(Modifier.PUBLIC);
-        // 添加类注解
-        classBuilder.addAnnotation(Data.class)
+        classBuilder.addModifiers(Modifier.PUBLIC)
+                // 添加类注解
+                .addAnnotation(Data.class)
                 .addAnnotation(AllArgsConstructor.class)
                 .addAnnotation(NoArgsConstructor.class)
                 .addAnnotation(Builder.class)
