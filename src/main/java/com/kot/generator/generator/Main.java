@@ -24,6 +24,9 @@ public class Main {
     private static final String[] TABLES = {"user"};
 
 
+    /**
+     * 根据表名生成代码
+     */
     @Test
     public void genByTables() throws Exception {
         for (String table : TABLES) {
@@ -34,6 +37,9 @@ public class Main {
         System.err.println("===========执行完成=========");
     }
 
+    /**
+     * 根据全部表名生成代码
+     */
     @Test
     public void genAll() throws Exception {
         for (String table : DatabaseUtils.getTableNames()) {
