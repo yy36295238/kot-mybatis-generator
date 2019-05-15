@@ -16,31 +16,27 @@ import java.io.IOException;
 
 class MakeMapper {
 
-    private String packageName;
+    private GeneralBuilder builder;
     private String tableName;
-    private String filePath;
-    private static final String AUTHOR = Main.AUTHOR;
 
-    MakeMapper(String packageName, String tableName, String filePath) {
-        super();
-        this.packageName = packageName;
+    MakeMapper(GeneralBuilder builder, String tableName) {
+        this.builder = builder;
         this.tableName = tableName;
-        this.filePath = filePath;
     }
 
     void makeClass() throws IOException {
 
         //泛型 BaseMapper<user>
         ClassName baseMapper = ClassName.get("kot.bootstarter.kotmybatis.mapper", "BaseMapper");
-        ClassName entity = ClassName.get(packageName + ".entity", CommonUtils.capitalName(tableName));
+        ClassName entity = ClassName.get(builder.packages + ".entity", CommonUtils.capitalName(tableName));
 
         TypeSpec.Builder classBuilder = TypeSpec.interfaceBuilder(CommonUtils.capitalName(tableName) + "Mapper")
                 .addModifiers(Modifier.PUBLIC)
-                .addJavadoc("@author " + AUTHOR + "\n")
+                .addJavadoc("@author " + builder.author + "\n")
                 .addSuperinterface(ParameterizedTypeName.get(baseMapper, entity));
 
-        JavaFile javaFile = JavaFile.builder(packageName + ".mapper", classBuilder.build()).build();
-        javaFile.writeTo(new File(filePath));
+        JavaFile javaFile = JavaFile.builder(builder.packages + ".mapper", classBuilder.build()).build();
+        javaFile.writeTo(new File(builder.filePath));
     }
 
 }

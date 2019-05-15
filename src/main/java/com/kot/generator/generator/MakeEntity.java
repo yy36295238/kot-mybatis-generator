@@ -20,18 +20,14 @@ import java.util.List;
 
 class MakeEntity {
 
-    private String packageName;
+    private GeneralBuilder builder;
     private String tableName;
-    private String filePath;
     private List<DatabaseUtils.ColumnInfo> columnInfos;
-    private static final String AUTHOR = Main.AUTHOR;
 
-    MakeEntity(String packageName, String tableName, String filePath, List<DatabaseUtils.ColumnInfo> columnInfos) {
-        super();
-        this.packageName = packageName;
+    MakeEntity(GeneralBuilder builder, String tableName) {
+        this.builder = builder;
         this.tableName = tableName;
-        this.filePath = filePath;
-        this.columnInfos = columnInfos;
+        this.columnInfos = DatabaseUtils.getColumnInfo(tableName);
     }
 
     void makeClass() throws IOException {
@@ -41,7 +37,7 @@ class MakeEntity {
         columnInfos.forEach(c -> {
             final FieldSpec.Builder fieldBuilder = FieldSpec.builder(CommonUtils.changeType(c.getType()), CommonUtils.camelCaseName(c.getName()), Modifier.PRIVATE)
                     .addJavadoc(c.getComment() + "\n");
-            if (Main.ENABLE_SWAGGER) {
+            if (builder.enableSwagger) {
                 fieldBuilder.addAnnotation(AnnotationSpec.builder(ApiModelProperty.class)
                         .addMember("value", "$S", c.getComment())
                         .addMember("dataType", "$S", CommonUtils.changeType(c.getType()).getSimpleName())
@@ -64,9 +60,9 @@ class MakeEntity {
                 .addAnnotation(AnnotationSpec.builder(ClassName.bestGuess("kot.bootstarter.kotmybatis.annotation.TableName"))
                         .addMember("value", "$S", tableName)
                         .build())
-                .addJavadoc("@author " + AUTHOR + "\n");
-        JavaFile javaFile = JavaFile.builder(packageName + ".entity", classBuilder.build()).build();
-        javaFile.writeTo(new File(filePath));
+                .addJavadoc("@author " + builder.author + "\n");
+        JavaFile javaFile = JavaFile.builder(builder.packages + ".entity", classBuilder.build()).build();
+        javaFile.writeTo(new File(builder.filePath));
     }
 
 }
