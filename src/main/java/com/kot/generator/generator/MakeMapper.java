@@ -1,6 +1,5 @@
 package com.kot.generator.generator;
 
-import com.kot.generator.utils.CommonUtils;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.ParameterizedTypeName;
@@ -28,9 +27,9 @@ class MakeMapper {
 
         //泛型 BaseMapper<user>
         ClassName baseMapper = ClassName.get("kot.bootstarter.kotmybatis.mapper", "BaseMapper");
-        ClassName entity = ClassName.get(builder.packages + ".entity", CommonUtils.capitalName(tableName));
+        ClassName entity = ClassName.get(builder.packages + ".entity", tableName);
 
-        TypeSpec.Builder classBuilder = TypeSpec.interfaceBuilder(CommonUtils.capitalName(tableName) + "Mapper")
+        TypeSpec.Builder classBuilder = TypeSpec.interfaceBuilder(tableName + "Mapper")
                 .addModifiers(Modifier.PUBLIC)
                 .addJavadoc("@author " + builder.author + "\n")
                 .addSuperinterface(ParameterizedTypeName.get(baseMapper, entity));

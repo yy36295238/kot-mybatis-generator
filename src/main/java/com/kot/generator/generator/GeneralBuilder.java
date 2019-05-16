@@ -1,8 +1,8 @@
 package com.kot.generator.generator;
 
 
+import com.kot.generator.utils.CommonUtils;
 import com.kot.generator.utils.DatabaseUtils;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.Arrays;
 import java.util.List;
@@ -47,6 +47,7 @@ public class GeneralBuilder {
             this.tables = DatabaseUtils.getTableNames();
         }
         for (String table : this.tables) {
+            table = CommonUtils.capitalName(table);
             new MakeEntity(this, table).makeClass();
             new MakeMapper(this, table).makeClass();
             new MakeService(this, table).makeClass();

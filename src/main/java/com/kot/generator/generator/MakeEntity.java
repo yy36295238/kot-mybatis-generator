@@ -32,7 +32,7 @@ class MakeEntity {
 
     void makeClass() throws IOException {
 
-        TypeSpec.Builder classBuilder = TypeSpec.classBuilder(CommonUtils.capitalName(tableName));
+        TypeSpec.Builder classBuilder = TypeSpec.classBuilder(tableName);
 
         columnInfos.forEach(c -> {
             final FieldSpec.Builder fieldBuilder = FieldSpec.builder(CommonUtils.changeType(c.getType()), CommonUtils.camelCaseName(c.getName()), Modifier.PRIVATE)

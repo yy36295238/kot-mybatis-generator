@@ -1,6 +1,5 @@
 package com.kot.generator.generator;
 
-import com.kot.generator.utils.CommonUtils;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.ParameterizedTypeName;
@@ -17,6 +16,7 @@ import java.io.IOException;
 
 class MakeService {
 
+    private static final String PREFIX = "I";
     private GeneralBuilder builder;
     private String tableName;
 
@@ -33,9 +33,9 @@ class MakeService {
     private void makeService() throws IOException {
         //泛型 BaseMapper<user>
         ClassName managerService = ClassName.get("kot.bootstarter.kotmybatis.service", "MapperManagerService");
-        ClassName entity = ClassName.get(builder.packages + ".entity", CommonUtils.capitalName(tableName));
+        ClassName entity = ClassName.get(builder.packages + ".entity", tableName);
 
-        TypeSpec.Builder serviceClassBuilder = TypeSpec.interfaceBuilder(CommonUtils.capitalName(tableName) + "Service")
+        TypeSpec.Builder serviceClassBuilder = TypeSpec.interfaceBuilder(PREFIX + tableName + "Service")
                 .addModifiers(Modifier.PUBLIC)
                 .addJavadoc("@author " + builder.author + "\n")
                 .addSuperinterface(ParameterizedTypeName.get(managerService, entity));
@@ -47,10 +47,10 @@ class MakeService {
     private void makeServiceImpl() throws IOException {
         //泛型 BaseMapper<user>
         ClassName managerService = ClassName.get("kot.bootstarter.kotmybatis.service.impl", "MapperManagerServiceImpl");
-        ClassName service = ClassName.bestGuess(builder.packages + ".service." + CommonUtils.capitalName(tableName) + "Service");
-        ClassName entity = ClassName.get(builder.packages + ".entity", CommonUtils.capitalName(tableName));
+        ClassName service = ClassName.bestGuess(builder.packages + ".service." + PREFIX + tableName + "Service");
+        ClassName entity = ClassName.get(builder.packages + ".entity", tableName);
 
-        TypeSpec.Builder serviceClassBuilder = TypeSpec.classBuilder(CommonUtils.capitalName(tableName) + "ServiceImpl")
+        TypeSpec.Builder serviceClassBuilder = TypeSpec.classBuilder(tableName + "ServiceImpl")
                 .addModifiers(Modifier.PUBLIC)
                 .addJavadoc("@author " + builder.author + "\n")
                 .addAnnotation(Service.class)
