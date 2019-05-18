@@ -24,10 +24,10 @@ class MakeEntity {
     private String tableName;
     private List<DatabaseUtils.ColumnInfo> columnInfos;
 
-    MakeEntity(GeneralBuilder builder, String tableName) {
+    MakeEntity(GeneralBuilder builder, String tableName, List<DatabaseUtils.ColumnInfo> columnInfos) {
         this.builder = builder;
         this.tableName = tableName;
-        this.columnInfos = DatabaseUtils.getColumnInfo(tableName);
+        this.columnInfos = columnInfos;
     }
 
     void makeClass() throws IOException {

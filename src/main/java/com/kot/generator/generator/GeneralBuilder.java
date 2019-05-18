@@ -38,8 +38,8 @@ public class GeneralBuilder {
     public Boolean allTables;
 
 
-    public GeneralBuilder build() {
-        return this;
+    public static GeneralBuilder create() {
+        return new GeneralBuilder();
     }
 
     public void gen() throws Exception {
@@ -47,10 +47,11 @@ public class GeneralBuilder {
             this.tables = DatabaseUtils.getTableNames();
         }
         for (String table : this.tables) {
-            table = CommonUtils.capitalName(table);
-            new MakeEntity(this, table).makeClass();
-            new MakeMapper(this, table).makeClass();
-            new MakeService(this, table).makeClass();
+            String entityName = CommonUtils.capitalName(table);
+            final List<DatabaseUtils.ColumnInfo> columnInfo = DatabaseUtils.getColumnInfo(table);
+            new MakeEntity(this, entityName, columnInfo).makeClass();
+            new MakeMapper(this, entityName).makeClass();
+            new MakeService(this, entityName).makeClass();
             print(table);
         }
     }

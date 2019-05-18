@@ -11,7 +11,7 @@ public class Main {
 
     @Test
     public void generalBuilder() throws Exception {
-        builder = new GeneralBuilder()
+        builder = GeneralBuilder.create()
                 .driver("com.mysql.cj.jdbc.Driver")
                 .url("jdbc:mysql://www.test.com:3306/test?serverTimezone=UTC&useSSL=false")
                 .username("test")
@@ -20,7 +20,7 @@ public class Main {
                 .filePath("\\src\\main\\java\\")
                 .packages("com.kot.kotmybatis.biz")
                 // 表名
-                .tables("user")
+//                .tables("user")
                 // 全部表
                 .allTables()
                 // 开启swagger注解
