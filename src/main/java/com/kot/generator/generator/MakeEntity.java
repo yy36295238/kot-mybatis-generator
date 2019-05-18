@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.lang.model.element.Modifier;
 import java.io.File;
@@ -23,11 +24,13 @@ class MakeEntity {
     private GeneralBuilder builder;
     private String tableName;
     private List<DatabaseUtils.ColumnInfo> columnInfos;
+    private String entityPackages;
 
     MakeEntity(GeneralBuilder builder, String tableName, List<DatabaseUtils.ColumnInfo> columnInfos) {
         this.builder = builder;
         this.tableName = tableName;
         this.columnInfos = columnInfos;
+        this.entityPackages = StringUtils.isBlank(builder.entityPackages) ? builder.packages : builder.entityPackages;
     }
 
     void makeClass() throws IOException {
@@ -61,7 +64,7 @@ class MakeEntity {
                         .addMember("value", "$S", tableName)
                         .build())
                 .addJavadoc("@author " + builder.author + "\n");
-        JavaFile javaFile = JavaFile.builder(builder.packages + ".entity", classBuilder.build()).build();
+        JavaFile javaFile = JavaFile.builder(this.entityPackages + ".entity", classBuilder.build()).build();
         javaFile.writeTo(new File(builder.filePath));
     }
 

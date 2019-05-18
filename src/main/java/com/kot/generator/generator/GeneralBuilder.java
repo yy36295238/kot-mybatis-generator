@@ -27,6 +27,9 @@ public class GeneralBuilder {
      * 包名称
      */
     public String packages;
+    public String entityPackages;
+    public String mapperPackages;
+    public String servicePackages;
     /**
      * 需要生成的表名
      */
@@ -91,8 +94,23 @@ public class GeneralBuilder {
         return this;
     }
 
-    public GeneralBuilder packages(String packages) {
+    public GeneralBuilder defaultPackages(String packages) {
         this.packages = packages;
+        return this;
+    }
+
+    public GeneralBuilder entityPackages(String entityPackages) {
+        this.entityPackages = entityPackages;
+        return this;
+    }
+
+    public GeneralBuilder mapperPackages(String mapperPackages) {
+        this.mapperPackages = mapperPackages;
+        return this;
+    }
+
+    public GeneralBuilder servicePackages(String servicePackages) {
+        this.servicePackages = servicePackages;
         return this;
     }
 

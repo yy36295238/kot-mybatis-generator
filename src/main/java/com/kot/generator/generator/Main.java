@@ -18,7 +18,11 @@ public class Main {
                 .password("Test!123S")
                 .author("yangyu")
                 .filePath("\\src\\main\\java\\")
-                .packages("com.kot.kotmybatis.biz")
+                // 默认包路径
+//                .defaultPackages("com.fawtoyota.miniprogram.dao")
+                .entityPackages("com.fawtoyota.miniprogram.dao")
+                .mapperPackages("com.fawtoyota.miniprogram.dao")
+                .servicePackages("com.fawtoyota.miniprogram.bg")
                 // 表名
 //                .tables("user")
                 // 全部表
