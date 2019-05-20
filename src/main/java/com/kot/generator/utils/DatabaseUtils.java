@@ -75,7 +75,7 @@ public class DatabaseUtils {
 
             ResultSet rs = ps.executeQuery("show full columns from " + tableName);
             while (rs.next()) {
-                columnInfos.add(new ColumnInfo(metaData.getColumnName(i), metaData.getColumnTypeName(i), rs.getString("Comment")));
+                columnInfos.add(new ColumnInfo(tableName, metaData.getColumnName(i), metaData.getColumnTypeName(i), rs.getString("Comment")));
                 i++;
             }
         } catch (SQLException e) {
@@ -88,6 +88,7 @@ public class DatabaseUtils {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class ColumnInfo {
+        private String tableName;
         private String name;
         private String type;
         private String comment;

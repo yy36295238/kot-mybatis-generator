@@ -18,7 +18,7 @@ public class GeneralBuilder {
     /**
      * 开启swagger注解
      */
-    public Boolean enableSwagger;
+    public Boolean enableSwagger = false;
     /**
      * 生成文件路径
      */
@@ -38,7 +38,7 @@ public class GeneralBuilder {
     /**
      * 生成所有表
      */
-    public Boolean allTables;
+    public Boolean allTables = false;
 
 
     public static GeneralBuilder create() {

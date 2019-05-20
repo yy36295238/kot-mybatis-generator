@@ -23,19 +23,21 @@ class MakeEntity {
 
     private GeneralBuilder builder;
     private String tableName;
+    private String className;
     private List<DatabaseUtils.ColumnInfo> columnInfos;
     private String entityPackages;
 
-    MakeEntity(GeneralBuilder builder, String tableName, List<DatabaseUtils.ColumnInfo> columnInfos) {
+    MakeEntity(GeneralBuilder builder, String className, List<DatabaseUtils.ColumnInfo> columnInfos) {
         this.builder = builder;
-        this.tableName = tableName;
+        this.className = className;
         this.columnInfos = columnInfos;
+        this.tableName = columnInfos.get(0).getTableName();
         this.entityPackages = StringUtils.isBlank(builder.entityPackages) ? builder.packages : builder.entityPackages;
     }
 
     void makeClass() throws IOException {
 
-        TypeSpec.Builder classBuilder = TypeSpec.classBuilder(tableName);
+        TypeSpec.Builder classBuilder = TypeSpec.classBuilder(className);
 
         columnInfos.forEach(c -> {
             final FieldSpec.Builder fieldBuilder = FieldSpec.builder(CommonUtils.changeType(c.getType()), CommonUtils.camelCaseName(c.getName()), Modifier.PRIVATE)
