@@ -26,9 +26,9 @@
             <version>2.8.0</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
+            <groupId>com.yyself</groupId>
             <artifactId>kotmybatis-spring-boot-starter</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>1.0.0-RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
