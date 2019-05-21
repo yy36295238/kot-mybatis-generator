@@ -29,7 +29,6 @@ public class Main {
                 .allTables()
                 // 开启swagger注解
                 .enableSwagger();
-
         // 执行生成
         builder.gen();
 
