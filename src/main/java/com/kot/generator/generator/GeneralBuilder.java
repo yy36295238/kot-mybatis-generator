@@ -125,10 +125,10 @@ public class GeneralBuilder {
     }
 
     private void print(String msg) {
-        System.out.println();
-        System.out.println("*********************************");
-        System.out.println("** " + msg + " execute success");
-        System.out.println("*********************************");
+        System.err.println();
+        System.err.println("**************************************");
+        System.err.println("** " + msg + " table general success");
+        System.err.println("**************************************");
     }
 
 }
