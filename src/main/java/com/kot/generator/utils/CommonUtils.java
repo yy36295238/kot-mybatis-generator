@@ -62,7 +62,7 @@ public class CommonUtils {
         if ("DATE".equals(type) || "DATETIME".equals(type) || "TIMESTAMP".equals(type)) {
             return Date.class;
         }
-        if ("TINYINT".equals(type) || "SMALLINT".equals(type) || "INT".equals(type)) {
+        if ("TINYINT".equals(type) || "SMALLINT".equals(type) || "INT".equals(type) || "SMALLINT UNSIGNED".equals(type)) {
             return Integer.class;
         }
         if ("BIGINT".equals(type) || "BIGINT UNSIGNED".equals(type)) {
