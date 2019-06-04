@@ -15,7 +15,7 @@ public class Main {
                 .driver("com.mysql.cj.jdbc.Driver")
                 .url("jdbc:mysql://www.test.com:3306/test?serverTimezone=UTC&useSSL=false")
                 .username("test")
-                .password("Test!123S")
+                .password("123456")
                 .author("yangyu")
                 .filePath("\\src\\main\\java\\")
                 // 默认包路径
