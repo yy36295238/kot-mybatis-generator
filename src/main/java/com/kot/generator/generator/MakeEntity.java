@@ -4,6 +4,8 @@ import com.kot.generator.utils.CommonUtils;
 import com.kot.generator.utils.DatabaseUtils;
 import com.squareup.javapoet.*;
 import io.swagger.annotations.ApiModelProperty;
+import kot.bootstarter.kotmybatis.annotation.Column;
+import kot.bootstarter.kotmybatis.annotation.ID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -48,6 +50,10 @@ class MakeEntity {
                         .addMember("dataType", "$S", CommonUtils.changeType(c.getType()).getSimpleName())
                         .addMember("name", "$S", CommonUtils.camelCaseName(c.getName()))
                         .build());
+            }
+            fieldBuilder.addAnnotation(AnnotationSpec.builder(Column.class).addMember("value", "$S", c.getName()).build());
+            if (c.isPrimaryKey()) {
+                fieldBuilder.addAnnotation(AnnotationSpec.builder(ID.class).addMember("value", "$S", c.getName()).build());
             }
             classBuilder.addField(fieldBuilder.build());
 

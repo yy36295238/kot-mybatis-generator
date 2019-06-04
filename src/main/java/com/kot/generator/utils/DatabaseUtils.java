@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author YangYu
@@ -69,19 +71,47 @@ public class DatabaseUtils {
         Connection conn = getConnection();
         String tableSql = String.format(SQL, tableName);
         try {
+
+            // 主键信息
+            final String primaryKey = getPrimaryKey(conn, tableName);
+
             PreparedStatement ps = conn.prepareStatement(tableSql);
-            final ResultSetMetaData metaData = ps.getMetaData();
+            final ResultSetMetaData rsMetaData = ps.getMetaData();
             int i = 1;
 
             ResultSet rs = ps.executeQuery("show full columns from " + tableName);
             while (rs.next()) {
-                columnInfos.add(new ColumnInfo(tableName, metaData.getColumnName(i), metaData.getColumnTypeName(i), rs.getString("Comment")));
+                final String columnName = rsMetaData.getColumnName(i);
+                columnInfos.add(new ColumnInfo(tableName, columnName, rsMetaData.getColumnTypeName(i), rs.getString("Comment"), columnName.equals(primaryKey)));
                 i++;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return columnInfos;
+    }
+
+    public static String getPrimaryKey(Connection con, String table) {
+
+        String sql = "SHOW CREATE TABLE " + table;
+        try {
+            PreparedStatement pre = con.prepareStatement(sql);
+            ResultSet rs = pre.executeQuery();
+            if (rs.next()) {
+                //正则匹配数据
+                Pattern pattern = Pattern.compile("PRIMARY KEY \\(\\`(.*)\\`\\)");
+                Matcher matcher = pattern.matcher(rs.getString(2));
+                matcher.find();
+                String data = matcher.group();
+                //过滤对于字符
+                data = data.replaceAll("\\`|PRIMARY KEY \\(|\\)", "");
+                return data;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Data
@@ -92,5 +122,6 @@ public class DatabaseUtils {
         private String name;
         private String type;
         private String comment;
+        private boolean isPrimaryKey;
     }
 }
