@@ -23,12 +23,14 @@ public class Main {
 //                .entityPackages("com.kot.kotmybatis.biz")
 //                .mapperPackages("com.kot.kotmybatis.biz")
 //                .servicePackages("com.kot.kotmybatis.biz")
+                // 忽略前缀
+                .ignorePrefix("t_")
                 // 表名
-                .tables("user")
+                .tables("t_user");
                 // 全部表
 //                .allTables()
                 // 开启swagger注解
-                .enableSwagger();
+//                .enableSwagger();
         // 执行生成
         builder.gen();
 

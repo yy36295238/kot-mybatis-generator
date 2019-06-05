@@ -3,6 +3,7 @@ package com.kot.generator.generator;
 
 import com.kot.generator.utils.CommonUtils;
 import com.kot.generator.utils.DatabaseUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -38,19 +39,29 @@ public class GeneralBuilder {
     /**
      * 生成所有表
      */
-    public Boolean allTables = false;
+    private Boolean allTables = false;
+
+    /**
+     * 忽略前缀
+     */
+    private String ignorePrefix;
 
 
-    public static GeneralBuilder create() {
+    static GeneralBuilder create() {
         return new GeneralBuilder();
     }
 
-    public void gen() throws Exception {
+    void gen() throws Exception {
         if (allTables) {
             this.tables = DatabaseUtils.getTableNames();
         }
+
         for (String table : this.tables) {
             String entityName = CommonUtils.capitalName(table);
+            if (StringUtils.isNotBlank(ignorePrefix)) {
+                entityName = CommonUtils.capitalName(table.replaceFirst(ignorePrefix, ""));
+            }
+
             final List<DatabaseUtils.ColumnInfo> columnInfo = DatabaseUtils.getColumnInfo(table);
             new MakeEntity(this, entityName, columnInfo).makeClass();
             new MakeMapper(this, entityName).makeClass();
@@ -121,6 +132,11 @@ public class GeneralBuilder {
 
     public GeneralBuilder allTables() {
         this.allTables = true;
+        return this;
+    }
+
+    public GeneralBuilder ignorePrefix(String prefix) {
+        this.ignorePrefix = prefix;
         return this;
     }
 

@@ -42,13 +42,13 @@ class MakeEntity {
         TypeSpec.Builder classBuilder = TypeSpec.classBuilder(className);
 
         columnInfos.forEach(c -> {
-            final FieldSpec.Builder fieldBuilder = FieldSpec.builder(CommonUtils.changeType(c.getType()), CommonUtils.camelCaseName(c.getName()), Modifier.PRIVATE)
+            final FieldSpec.Builder fieldBuilder = FieldSpec.builder(CommonUtils.changeType(c.getType()), CommonUtils.camelCaseName(c.getName().toLowerCase()), Modifier.PRIVATE)
                     .addJavadoc(c.getComment() + "\n");
             if (builder.enableSwagger) {
                 fieldBuilder.addAnnotation(AnnotationSpec.builder(ApiModelProperty.class)
                         .addMember("value", "$S", c.getComment())
                         .addMember("dataType", "$S", CommonUtils.changeType(c.getType()).getSimpleName())
-                        .addMember("name", "$S", CommonUtils.camelCaseName(c.getName()))
+                        .addMember("name", "$S", CommonUtils.camelCaseName(c.getName().toLowerCase()))
                         .build());
             }
             fieldBuilder.addAnnotation(AnnotationSpec.builder(Column.class).addMember("value", "$S", c.getName()).build());
