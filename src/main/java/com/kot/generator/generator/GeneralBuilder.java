@@ -2,7 +2,7 @@ package com.kot.generator.generator;
 
 
 import com.kot.generator.utils.CommonUtils;
-import com.kot.generator.utils.DatabaseUtils;
+import com.kot.generator.utils.DatabaseAbstract;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
@@ -10,11 +10,12 @@ import java.util.List;
 
 public class GeneralBuilder {
 
+    private DatabaseAbstract databaseAbstract;
 
-    public String driver;
-    public String url;
-    public String username;
-    public String password;
+    public static String driver;
+    public static String url;
+    public static String username;
+    public static String password;
     public String author;
     /**
      * 开启swagger注解
@@ -46,14 +47,18 @@ public class GeneralBuilder {
      */
     private String ignorePrefix;
 
-
-    static GeneralBuilder create() {
-        return new GeneralBuilder();
+    public GeneralBuilder(DatabaseAbstract databaseAbstract) {
+        this.databaseAbstract = databaseAbstract;
     }
 
-    void gen() throws Exception {
+    public static GeneralBuilder create(DatabaseAbstract databaseAbstract) {
+        return new GeneralBuilder(databaseAbstract);
+    }
+
+    public void gen() throws Exception {
+        DatabaseAbstract.getConnection();
         if (allTables) {
-            this.tables = DatabaseUtils.getTableNames();
+            this.tables = DatabaseAbstract.getTableNames();
         }
 
         for (String table : this.tables) {
@@ -62,7 +67,7 @@ public class GeneralBuilder {
                 entityName = CommonUtils.capitalName(table.replaceFirst(ignorePrefix, ""));
             }
 
-            final List<DatabaseUtils.ColumnInfo> columnInfo = DatabaseUtils.getColumnInfo(table);
+            final List<DatabaseAbstract.ColumnInfo> columnInfo = databaseAbstract.getColumnInfo(table);
             new MakeEntity(this, entityName, columnInfo).makeClass();
             new MakeMapper(this, entityName).makeClass();
             new MakeService(this, entityName).makeClass();

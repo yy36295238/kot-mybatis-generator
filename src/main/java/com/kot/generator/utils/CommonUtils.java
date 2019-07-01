@@ -58,8 +58,9 @@ public class CommonUtils {
     }
 
     public static Class<?> changeType(String type) {
+        type = type.toUpperCase();
 
-        if ("DATE".equals(type) || "DATETIME".equals(type) || "TIMESTAMP".equals(type)) {
+        if ("DATE".equals(type) || "DATETIME".equals(type) || "TIMESTAMP".equals(type) || type.contains("TIMESTAMP")) {
             return Date.class;
         }
         if ("TINYINT".equals(type) || "SMALLINT".equals(type) || "INT".equals(type) || "SMALLINT UNSIGNED".equals(type)) {
@@ -80,7 +81,7 @@ public class CommonUtils {
         if ("BIT".equals(type) || "BOOLEAN".equals(type)) {
             return Boolean.class;
         }
-        if ("CHAR".equals(type) || "VARCHAR".equals(type) || "TEXT".equals(type)) {
+        if ("CHAR".equals(type) || "VARCHAR".equals(type) || "TEXT".equals(type) || type.contains("CHARACTER")) {
             return String.class;
         }
         throw new RuntimeException("未知数据类型 = " + type);

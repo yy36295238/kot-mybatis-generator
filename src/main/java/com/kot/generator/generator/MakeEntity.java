@@ -1,7 +1,7 @@
 package com.kot.generator.generator;
 
 import com.kot.generator.utils.CommonUtils;
-import com.kot.generator.utils.DatabaseUtils;
+import com.kot.generator.utils.DatabaseAbstract;
 import com.squareup.javapoet.*;
 import io.swagger.annotations.ApiModelProperty;
 import kot.bootstarter.kotmybatis.annotation.Column;
@@ -26,10 +26,10 @@ class MakeEntity {
     private GeneralBuilder builder;
     private String tableName;
     private String className;
-    private List<DatabaseUtils.ColumnInfo> columnInfos;
+    private List<DatabaseAbstract.ColumnInfo> columnInfos;
     private String entityPackages;
 
-    MakeEntity(GeneralBuilder builder, String className, List<DatabaseUtils.ColumnInfo> columnInfos) {
+    MakeEntity(GeneralBuilder builder, String className, List<DatabaseAbstract.ColumnInfo> columnInfos) {
         this.builder = builder;
         this.className = className;
         this.columnInfos = columnInfos;

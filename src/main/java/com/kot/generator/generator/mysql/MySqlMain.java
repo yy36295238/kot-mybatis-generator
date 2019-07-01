@@ -1,17 +1,19 @@
-package com.kot.generator.generator;
+package com.kot.generator.generator.mysql;
 
+import com.kot.generator.generator.GeneralBuilder;
+import com.kot.generator.utils.MysqlDatabase;
 import org.junit.Test;
 
 /**
  * @author YangYu
  */
-public class Main {
+public class MySqlMain {
 
     public static GeneralBuilder builder;
 
     @Test
     public void generalBuilder() throws Exception {
-        builder = GeneralBuilder.create()
+        builder = GeneralBuilder.create(new MysqlDatabase())
                 .driver("com.mysql.cj.jdbc.Driver")
                 .url("jdbc:mysql://www.test.com:3306/test?serverTimezone=UTC&useSSL=false")
                 .username("test")
@@ -28,9 +30,10 @@ public class Main {
                 // 表名
                 .tables("t_user");
                 // 全部表
-//                .allTables()
+//              .allTables()
                 // 开启swagger注解
-//                .enableSwagger();
+//              .enableSwagger();
+
         // 执行生成
         builder.gen();
 
