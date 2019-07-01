@@ -21,10 +21,10 @@ public class MySqlMain {
                 .author("yangyu")
                 .filePath("\\src\\main\\java\\")
                 // 默认包路径
-                .defaultPackages("com.kot.kotmybatis.biz")
-//                .entityPackages("com.kot.kotmybatis.biz")
-//                .mapperPackages("com.kot.kotmybatis.biz")
-//                .servicePackages("com.kot.kotmybatis.biz")
+                .defaultPackages("com.kot.kotmybatis.biz.mysql.biz")
+//                .entityPackages("com.kot.kotmybatis.biz.mysql.biz")
+//                .mapperPackages("com.kot.kotmybatis.biz.mysql.biz")
+//                .servicePackages("com.kot.kotmybatis.biz.mysql.biz")
                 // 忽略前缀
                 .ignorePrefix("t_")
                 // 表名

@@ -21,10 +21,10 @@ public class PostgresSqlMain {
                 .author("yangyu")
                 .filePath("\\src\\main\\java\\")
                 // 默认包路径
-                .defaultPackages("com.kot.kotmybatis.pg.biz")
-//                .entityPackages("com.kot.kotmybatis.biz")
-//                .mapperPackages("com.kot.kotmybatis.biz")
-//                .servicePackages("com.kot.kotmybatis.biz")
+                .defaultPackages("com.kot.kotmybatis.biz.pg.biz")
+//                .entityPackages("com.kot.kotmybatis.biz.pg.biz")
+//                .mapperPackages("com.kot.kotmybatis.biz.pg.biz")
+//                .servicePackages("com.kot.kotmybatis.biz.pg.biz")
                 // 忽略前缀
                 .ignorePrefix("t_")
                 // 表名
