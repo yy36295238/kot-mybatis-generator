@@ -1,4 +1,4 @@
-package com.kot.generator.utils;
+package com.kot.generator.databasehelper;
 
 import com.kot.generator.generator.GeneralBuilder;
 import lombok.AllArgsConstructor;

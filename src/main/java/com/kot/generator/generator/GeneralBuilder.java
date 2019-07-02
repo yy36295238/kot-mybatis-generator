@@ -2,7 +2,7 @@ package com.kot.generator.generator;
 
 
 import com.kot.generator.utils.CommonUtils;
-import com.kot.generator.utils.DatabaseAbstract;
+import com.kot.generator.databasehelper.DatabaseAbstract;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;

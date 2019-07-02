@@ -1,7 +1,7 @@
 package com.kot.generator.generator.postgres;
 
 import com.kot.generator.generator.GeneralBuilder;
-import com.kot.generator.utils.PgDatabase;
+import com.kot.generator.databasehelper.PgDatabase;
 import org.junit.Test;
 
 /**
@@ -28,9 +28,9 @@ public class PostgresSqlMain {
                 // 忽略前缀
                 .ignorePrefix("t_")
                 // 表名
-                .tables("t_user");
+//                .tables("t_user");
                 // 全部表
-//                .allTables()
+                .allTables();
                 // 开启swagger注解
 //                .enableSwagger();
         // 执行生成

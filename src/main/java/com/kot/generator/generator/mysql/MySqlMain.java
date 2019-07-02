@@ -1,7 +1,7 @@
 package com.kot.generator.generator.mysql;
 
 import com.kot.generator.generator.GeneralBuilder;
-import com.kot.generator.utils.MysqlDatabase;
+import com.kot.generator.databasehelper.MysqlDatabase;
 import org.junit.Test;
 
 /**
@@ -28,9 +28,9 @@ public class MySqlMain {
                 // 忽略前缀
                 .ignorePrefix("t_")
                 // 表名
-                .tables("t_user");
+//                .tables("t_user");
                 // 全部表
-//              .allTables()
+                  .allTables();
                 // 开启swagger注解
 //              .enableSwagger();
 

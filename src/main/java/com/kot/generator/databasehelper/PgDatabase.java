@@ -1,4 +1,4 @@
-package com.kot.generator.utils;
+package com.kot.generator.databasehelper;
 
 import lombok.extern.slf4j.Slf4j;
 
