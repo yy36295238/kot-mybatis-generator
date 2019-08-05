@@ -32,6 +32,7 @@ public class GeneralBuilder {
     public String entityPackages;
     public String mapperPackages;
     public String servicePackages;
+    public String controllerPackages;
     /**
      * 需要生成的表名
      */
@@ -71,6 +72,7 @@ public class GeneralBuilder {
             new MakeEntity(this, entityName, columnInfo).makeClass();
             new MakeMapper(this, entityName).makeClass();
             new MakeService(this, entityName).makeClass();
+            new MakeController(this, entityName).makeClass();
             print(table);
         }
     }
@@ -127,6 +129,11 @@ public class GeneralBuilder {
 
     public GeneralBuilder servicePackages(String servicePackages) {
         this.servicePackages = servicePackages;
+        return this;
+    }
+
+    public GeneralBuilder controllerPackages(String controllerPackages) {
+        this.controllerPackages = controllerPackages;
         return this;
     }
 
