@@ -28,6 +28,7 @@ class MakeController {
     private GeneralBuilder builder;
     private String tableName;
     private String entityPackages;
+    private String servicePackages;
     private String controllerPackages;
 
     MakeController(GeneralBuilder builder, String tableName) {
@@ -35,6 +36,7 @@ class MakeController {
         this.tableName = tableName;
         this.entityPackages = StringUtils.isBlank(builder.entityPackages) ? builder.packages : builder.entityPackages;
         this.controllerPackages = StringUtils.isBlank(builder.controllerPackages) ? builder.packages : builder.controllerPackages;
+        this.servicePackages = StringUtils.isBlank(builder.servicePackages) ? builder.packages : builder.servicePackages;
     }
 
     void makeClass() throws IOException {
@@ -42,7 +44,7 @@ class MakeController {
     }
 
     private void makeController() throws IOException {
-        ClassName service = ClassName.get(controllerPackages + ".service", PREFIX + tableName + "Service");
+        ClassName service = ClassName.get(servicePackages + ".service", PREFIX + tableName + "Service");
         ClassName entity = ClassName.get(this.entityPackages + ".entity", tableName);
 
         String serviceName = lowerName(tableName) + "Service";
