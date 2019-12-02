@@ -1,12 +1,14 @@
 package com.kot.generator.generator;
 
 
-import com.kot.generator.utils.CommonUtils;
 import com.kot.generator.databasehelper.DatabaseAbstract;
+import com.kot.generator.utils.CommonUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
 import java.util.List;
+
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 public class GeneralBuilder {
 
@@ -14,6 +16,7 @@ public class GeneralBuilder {
 
     public static String driver;
     public static String url;
+    public static String database;
     public static String username;
     public static String password;
     public String author;
@@ -57,6 +60,9 @@ public class GeneralBuilder {
     }
 
     public void gen() throws Exception {
+        // 解析配置
+        parseConfig();
+
         DatabaseAbstract.getConnection();
         if (allTables) {
             this.tables = DatabaseAbstract.getTableNames();
@@ -84,6 +90,11 @@ public class GeneralBuilder {
 
     public GeneralBuilder url(String url) {
         this.url = url;
+        return this;
+    }
+
+    public GeneralBuilder database(String database) {
+        this.database = database;
         return this;
     }
 
@@ -157,6 +168,25 @@ public class GeneralBuilder {
         System.err.println("**************************************");
         System.err.println("** " + msg + " table general success");
         System.err.println("**************************************");
+    }
+
+    private void parseConfig() {
+        if (isBlank(driver)) {
+            if (url.contains("mysql")) {
+                GeneralBuilder.driver = "com.mysql.cj.jdbc.Driver";
+            } else if (driver.contains("postgresql")) {
+                GeneralBuilder.driver = "org.postgresql.Driver";
+            } else {
+                throw new RuntimeException("未找到数据库驱动[driver]");
+            }
+        }
+        if (isBlank(database)) {
+            GeneralBuilder.database = getDatabase();
+        }
+    }
+
+    private String getDatabase() {
+        return url.substring(url.lastIndexOf("/") + 1, url.contains("?") ? url.indexOf("?") : url.length());
     }
 
 }
