@@ -120,6 +120,7 @@ public class GeneralBuilder {
 
     public GeneralBuilder filePath(String filePath) {
         this.filePath = System.getProperty("user.dir") + filePath;
+        System.out.println(filePath);
         return this;
     }
 
@@ -187,6 +188,10 @@ public class GeneralBuilder {
 
     private String getDatabase() {
         return url.substring(url.lastIndexOf("/") + 1, url.contains("?") ? url.indexOf("?") : url.length());
+    }
+
+    public static void main(String[] args) {
+        System.out.println(System.getProperty("user.dir"));
     }
 
 }

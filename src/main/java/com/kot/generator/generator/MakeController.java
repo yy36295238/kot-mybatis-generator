@@ -105,7 +105,7 @@ class MakeController {
     }
 
     private MethodSpec id(ClassName entity, String tableName, String serviceName) {
-        return MethodSpec.methodBuilder("list")
+        return MethodSpec.methodBuilder("findById")
                 .addAnnotation(AnnotationSpec.builder(ApiOperation.class)
                         .addMember("value", "$S", "/根据id查询").build())
                 .addAnnotation(AnnotationSpec.builder(ApiImplicitParam.class)
