@@ -66,6 +66,7 @@ class MakeController {
                 .addField(controllerField)
                 // 新增
                 .addMethod(add(entity, tableName, serviceName))
+                .addMethod(list(entity, tableName, serviceName))
                 .addMethod(page(entity, tableName, serviceName))
                 .addMethod(id(entity, tableName, serviceName))
                 .addMethod(updateById(entity, tableName, serviceName))
@@ -86,6 +87,19 @@ class MakeController {
                 .addParameter(entity, lowerName(tableName))
                 .returns(ResponseResult.class)
                 .addStatement("return ResponseResult.ok(" + serviceName + ".newUpdate().insert(" + lowerName(tableName) + "))")
+                .build();
+    }
+
+    private MethodSpec list(ClassName entity, String tableName, String serviceName) {
+        return MethodSpec.methodBuilder("list")
+                .addAnnotation(AnnotationSpec.builder(ApiOperation.class)
+                        .addMember("value", "$S", "/列表").build())
+                .addAnnotation(AnnotationSpec.builder(GetMapping.class)
+                        .addMember("value", "$S", "/list").build())
+                .addModifiers(Modifier.PUBLIC)
+                .addParameter(entity, lowerName(tableName))
+                .returns(ResponseResult.class)
+                .addStatement("return ResponseResult.ok(" + serviceName + ".newQuery().orderByIdDesc().list(" + lowerName(tableName) + "))")
                 .build();
     }
 
