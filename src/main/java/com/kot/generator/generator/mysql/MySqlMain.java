@@ -14,7 +14,7 @@ public class MySqlMain {
     @Test
     public void generalBuilder() throws Exception {
         builder = GeneralBuilder.create(new MysqlDatabase())
-                .url("jdbc:mysql://www.test.com:3306/kot-agent?serverTimezone=UTC&useSSL=false")
+                .url("jdbc:mysql://localhost:3306/kot-agent?serverTimezone=UTC&useSSL=false")
                 .username("test")
                 .password("123456")
                 .author("yangyu")
